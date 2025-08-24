@@ -1,159 +1,350 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar">
 <head>
-	<center><h4 style="color:#FFFF00;font-size:30px;"> AMEER LIVE <strong ></h4></center>
-<br>
-<center><h1 style="color:#FFFFFF;">Home Amir Hussein Live </h1><center>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ameer TV - بث مباشر</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#071225;
+    --card:#0f2740;
+    --accent:#ff5a5f;
+    --text:#e8f3ff;
+    --muted:#9fb7d6;
+  }
+  *{box-sizing:border-box;font-family:"Almarai",sans-serif}
+  body{
+    margin:0;background:linear-gradient(180deg,var(--bg),#04202a);
+    color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;
+  }
+  .app {
+    width:100%;max-width:1100px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:12px;padding:16px;box-shadow:0 8px 30px rgba(1,10,20,0.6);border:1px solid rgba(255,255,255,0.03)
+  }
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js">
-</script> 
-<style> 
-body { ‎#4a269c-color:‎#4a269c; } .alignleft{ float:left; 
-margin-left:5px; color:‎#4a269c; font-weight:bold; font-size:15px; } 
-.alignright{ float:right; margin-right:10px; color:‎#4a269c; font-size:15px; 
-font-weight:normal ; } h4{ margin-left:5px; color:‎#4a269c; font-weight:bold; 
-font-size:15px; } .nta { position:relative ; overflow:hidden ; } div.scrollmenu 
-{ background-color: ‎#4a269c; overflow: auto; white-space: nowrap; position:relative
- ; overflow-y:hidden ; } div.scrollmenu a { display: inline-block; color: white; 
- text-align:center; padding: 4px; text-decoration: none; } div.scrollmenu a:hover 
- { background-color: ‎#4a269c; } .cen{ position:relative ; text-align:center; color:white;
-  } .centered{ font-size:14px; font-weight:bold; position:absolute ; top:80%; left: 50%; 
-  transform:translate(-50%,-50%) } .cent{ font-size:auto; position:absolute ; top:95%; left: 
-  50%; transform:translate(-50%,-50%) } .nt{ width: 105px; border-radius: 5px; height: 120px 
-  ; z-index:1; } .mnt{ width: 100px; border-radius: 2px; height: 100px; } </style> 
-  
-<!-- Responsive viewport -->
-<meta content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0' name='viewport'/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<link rel="stylesheet" href="https://dl.dropbox.com/s/h0fiunpt4qk9x7h/style.css">
-<script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
-<script async="true" src="https://dl.dropbox.com/s/n830ftpexj647qr/navbar.js"></script>
-<!-- Iconos -->
-<link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
-<style type="text/css">
-body{font-family: 'PT Sans', sans-serif;}
-a{color:‎#4a269c;font-size:18px;text-decoration:none;}
+  .top {
+    display:flex;gap:12px;align-items:center;margin-bottom:12px;
+  }
+  .logo{
+    width:58px;height:58px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#ff8a66);
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:white;
+    box-shadow:0 6px 18px rgba(255,90,95,0.12)
+  }
+  h1{margin:0;font-size:20px}
+  p.small{margin:0;color:var(--muted);font-size:13px}
+
+  .player-wrap{
+    display:grid;grid-template-columns:1fr 320px;gap:16px;
+  }
+
+  /* video area */
+  .player {
+    background:#000;border-radius:10px;overflow:hidden;position:relative;
+  }
+  video{
+    width:100%;height:100%;display:block;background:black;
+    aspect-ratio:16/9;object-fit:cover;
+  }
+
+  /* controls bar */
+  .controls {
+    position:absolute;left:0;right:0;bottom:0;padding:10px;background:linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.6));
+    display:flex;align-items:center;gap:10px;
+  }
+  .btn {
+    background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04);
+    color:var(--text);padding:8px;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn:hover{background:rgba(255,255,255,0.04)}
+  .btn.icon{padding:10px;border-radius:8px;}
+
+  .progress {
+    -webkit-appearance:none;height:6px;background:rgba(255,255,255,0.06);border-radius:6px;flex:1;
+  }
+  .progress::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px rgba(255,90,95,0.25)}
+
+  .right-controls{display:flex;gap:8px;align-items:center}
+
+  /* channel list column */
+  .sidebar{
+    background:var(--card);border-radius:10px;padding:12px;min-height:280px;
+  }
+  .channel{
+    display:flex;gap:10px;align-items:center;padding:8px;border-radius:8px;margin-bottom:8px;cursor:pointer;
+    transition:background .12s;
+  }
+  .channel:hover{background:rgba(255,255,255,0.02)}
+  .thumb{
+    width:64px;height:40px;border-radius:6px;background:#082b3f;color:white;display:flex;align-items:center;justify-content:center;font-weight:700;
+  }
+  .ch-info{flex:1}
+  .ch-name{font-weight:700}
+  .ch-sub{font-size:12px;color:var(--muted)}
+
+  .active{outline:2px solid rgba(255,90,95,0.18)}
+
+  /* notifications toast */
+  .toast {
+    position:fixed;left:20px;bottom:20px;background:rgba(4,28,40,0.95);color:var(--text);padding:12px 16px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.6);z-index:9999;
+    display:flex;gap:10px;align-items:center;
+  }
+
+  /* responsive */
+  @media (max-width:880px){
+    .player-wrap{grid-template-columns:1fr}
+    .sidebar{order:2}
+  }
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-<!-- jQuery Modal -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-
-
 </head>
 <body>
-<div class ="main">
+  <div class="app" role="application" aria-label="Ameer TV">
+    <div class="top">
+      <div class="logo">AM</div>
+      <div>
+        <h1>Ameer TV - قنوات رياضية</h1>
+        <p class="small">تشغيل روابط M3U8 — استخدم أزرار التالي / السابق، التحكم بالصوت، وملء الشاشة.</p>
+      </div>
+    </div>
 
-<ul>
-<li><span class="iconify" data-icon="-alt-01"></span></li>
-<li><a href="" style=";"  ><span class="" data-icon="akar-icons:search" ></a></span></li>
-</ul>
-<br>
-</div>
+    <div class="player-wrap">
+      <div class="player" id="player">
+        <video id="video" playsinline webkit-playsinline></video>
 
-<style>
-body  {margin:0;padding:0;}
-.main ul{text-decoration:none;display:flex;justify-content:space-between;list-style:none;/* From https://css.glass */
-background: rgba(255, 255, 255, 0);
-border-radius: 16px;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(5px);
--webkit-backdrop-filter: blur (5px);
-border: 3px solid rgba(255, 255, 255, 0.3);;padding:0px;align-items:center;border-radius:10px;color:‎#4a269c; }
-li a,h3{border-radius:50px;background-color:‎#4a269c ;padding:65;height:40px;width:40px}
+        <!-- custom controls -->
+        <div class="controls" id="controls">
+          <button class="btn icon" id="prevBtn" title="القناة السابقة">⟸</button>
+          <button class="btn icon" id="playBtn" title="تشغيل/إيقاف">▶️</button>
+          <button class="btn icon" id="nextBtn" title="القناة التالية">⟹</button>
 
-</style>
+          <input id="progress" class="progress" type="range" min="0" max="100" value="0">
 
-<script src="https://code.iconify.design/2/2.1.2/iconify.min.js"></script>
-<div id="slider">
-<figure>
+          <div class="right-controls">
+            <div style="display:flex;align-items:center;gap:8px">
+              <button class="btn" id="muteBtn" title="كتم/إلغاء">🔊</button>
+              <input id="volume" type="range" min="0" max="1" step="0.01" value="1" style="width:90px">
+            </div>
 
-<a href="#">
-<img src="  https://i.ibb.co/bdFncQ9/Picsart-24-09-27-14-46-31-117.jpg" alt="">
-<a href="#">
-<img src="  https://i.ibb.co/rZYP40C/Picsart-24-09-27-14-30-18-770.jpg" alt="">
-<a href="#">
-<img src="   https://i.ibb.co/rZYP40C/Picsart-24-09-27-14-30-18-770.jpg" alt="">
-<a href="#">
-<img src="   https://i.ibb.co/rZYP40C/Picsart-24-09-27-14-30-18-770.jpg" alt="">
-<a href="#">
-<img src="   https://i.ibb.co/rZYP40C/Picsart-24-09-27-14-30-18-770.jpg" alt="">
+            <div style="min-width:160px;text-align:center;">
+              <div id="currentChannel" style="font-weight:700">--</div>
+              <div style="font-size:11px;color:var(--muted)" id="chResolution">--</div>
+            </div>
 
-</figure>
-<center><h4 style="color:#FFFFFF;font-size:30px;"> Bein Sport <strong ></h4></center>
+            <button class="btn icon" id="fsBtn" title="ملء الشاشة">⤢</button>
+          </div>
+        </div>
+      </div>
 
+      <div class="sidebar" aria-label="قائمة القنوات">
+        <!-- Channels will be injected here -->
+        <div id="channelsList"></div>
+      </div>
+    </div>
+  </div>
 
-<div class="scrollmenu">     <a href="https://ameer8245ameer.github.io/Dazn2/"><div class="cen"> <img class="nt" src="https://i.ibb.co/71F6Bkd/Picsart-24-09-27-13-19-16-700.png"><h5 
-class="centered"></h5></div> <a href="https://ameer8245ameer.github.io/bein2/"><div class="cen"> <img class="nt" src="https://i.ibb.co/KFPKQBZ/Picsart-24-09-27-13-20-15-487.png"><h5 
-class="centered"></h5></div> <a href="  https://ameer8245ameer.github.io/bein-3/"><div class="cen"> <img class="nt" src="https://i.ibb.co/cXmxRvL/Picsart-24-09-27-13-20-38-141.png"><h5
-class="centered"></h5></div> <a href="https://ameer8245ameer.github.io/bein4/"><div class="cen"> <img class="nt" src="https://i.ibb.co/pLBvsFG/Picsart-24-09-27-13-21-14-717.png"><h5
-class="centered"></h5></div> <a href="https://ameer8245ameer.github.io/bein5/"><div class="cen"> <img class="nt" src="https://i.ibb.co/N3kQYYc/Picsart-24-09-27-13-21-35-735.png"><h5
-class="centered"></h5></div> <a href="https://ameer8245ameer.github.io/bein6/"><div class="cen"> <img class="nt" src="https://i.ibb.co/rp8qRwm/Picsart-24-09-27-13-21-56-278.png"><h5
-class="centered"></h5></div> <a href="https://ameer8245ameer.github.io/bein7"><div class="cen"> <img class="nt" src="https://i.ibb.co/JrdDqWg/Picsart-24-09-27-13-22-14-375.png"><h5
-class="centered"></h5></div> <a href="https://ameer8245ameer.github.io/bein8/"><div class="cen"> <img class="nt" src="https://i.ibb.co/HVJYFDz/Picsart-24-09-27-13-22-37-027.png"><h5
-class="centered"></h5></div> <a href="https://ameer8245ameer.github.io/Dazn1/"><div class="cen"> <img class="nt" src="https://i.ibb.co/KLR0ZdW/images.png"><h5
-class="centered"></h5></div> <a href="https://ameer8245ameer.github.io/Dazn2/"><div class="cen"> <img class="nt" src="https://i.ibb.co/KLR0ZdW/images.png"><h5
-class="centered"></h5></div> <a href="go:gv"><div class="cen ag"> 
-</div> </a> </div> 
-</div> <div 
-</figure>
-<center><h4 style="color:#FFFFFF;font-size:30px;"> SPORTS CHANNEL<strong ></h4></center>
+  <!-- toast container -->
+  <div id="toastContainer" style="display:none"></div>
 
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script>
+    // === قائمة القنوات والروابط (الترتيب اللي طلبته) ===
+    const channels = [
+      {name:"bein sport 1", url:"https://stream.supertv.gg:3001/supertv/sport/stv1/ch1/ch1_1080.m3u8"},
+      {name:"bein sport 2", url:"https://stream.supertv.gg:3002/supertv/sport/stv2/ch2/ch2_1080.m3u8"},
+      {name:"bein sport 3", url:"https://stream.supertv.gg:3003/supertv/sport/stv3/ch3/ch3_720.m3u8"},
+      {name:"bein sport 4", url:"https://stream.supertv.gg:3004/supertv/sport/stv4/ch4/ch4_1080.m3u8"},
+      {name:"bein sport 5", url:"https://stream.supertv.gg:3005/supertv/sport/stv5/ch5/ch5_360.m3u8"},
+      {name:"bein sport 6", url:"https://stream.supertv.gg:3006/supertv/sport/stv6/ch6/ch6_1080.m3u8"},
+      {name:"bein sport 7", url:"https://stream.supertv.gg:3007/supertv/sport/stv7/ch7/ch7_1080.m3u8"},
+      {name:"bein sport 8", url:"https://stream.supertv.gg:3008/supertv/sport/stv8/ch8/ch8_1080.m3u8"},
+      {name:"bein sport 9", url:"https://stream.supertv.gg:3008/supertv/sport/stv8/ch9/ch9_1080.m3u8"},
+      {name:"قناة ابو ضبي الرياضية 1", url:"https://stream.supertv.gg:3008/supertv/sport/stv8/ch10/ch10_1080.m3u8"}
+    ];
 
-<div class="scrollmenu">     <a href="https://ameer8245ameer.github.io/Dazn1/"><div class="cen"> <img class="nt" src="https://i.ibb.co/rdkL62v/Picsart-24-09-28-19-55-04-591.png"><h5 
-class="centered"></h5></div> <a href="https://ameerbien245ameer.github.io/Dzan2/"><div class="cen"> <img class="nt" src="https://i.ibb.co/ccSpCDr/Picsart-24-09-28-20-04-27-424.png"><h5 
-class="centered"></h5></div> <a href="  https://ameerbien245ameer.github.io/Dazn3/"><div class="cen"> <img class="nt" src="https://i.ibb.co/LZ3LbVx/Picsart-24-09-28-20-14-41-009.png"><h5
-class="centered"></h5></div> <a href="https://ameerbien245ameer.github.io/Sporttv1/"><div class="cen"> <img class="nt" src="https://i.ibb.co/CWDKSvv/Picsart-24-09-28-20-32-29-333.png"><h5
-class="centered"></h5></div> <a href="https://ameerbien245ameer.github.io/sporttv2/"><div class="cen"> <img class="nt" src="https://i.ibb.co/j5R47JH/Picsart-24-09-28-20-43-38-453.png"><h5
-class="centered"></h5></div> <a href="https://ameerbien245ameer.github.io/SSC1/"><div class="cen"> <img class="nt" src="https://i.ibb.co/y04hF01/Picsart-24-09-28-20-54-29-651.png"><h5
-class="centered"></h5></div> <a href="https://ameerbien245ameer.github.io/SSCExtra2/"><div class="cen"> <img class="nt" src="https://i.ibb.co/PNDBtPB/Picsart-24-09-28-20-56-13-018.png"><h5
-class="centered"></h5></div> <a href="vvvv"><div class="cen"> <img class="nt" src="https://i.ibb.co/rZYP40C/Picsart-24-09-27-14-30-18-770.jpg"><h5
-class="centered"></h5></div> <a href="vvvvv"><div class="cen"> <img class="nt" src="https://i.ibb.co/qgs2v7F/Picsart-24-09-28-21-08-58-250.png"><h5
-class="centered"></h5></div> <a href="vvvvvv"><div class="cen"> <img class="nt" src="https://i.ibb.co/cDgfjmH/Picsart-24-09-28-21-10-01-476.png"><h5
-class="centered"></h5></div> <a href="go:gv"><div class="cen ag"> <img class="nt" src="https://i.ibb.co/YPhvLc8/Picsart-24-09-28-21-23-16-349.png"> 
-<h5 class="centered"></h5> 
-</div> </a> </div> 
-</div> <div 
+    // عناصر DOM
+    const video = document.getElementById('video');
+    const playBtn = document.getElementById('playBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const volumeSlider = document.getElementById('volume');
+    const muteBtn = document.getElementById('muteBtn');
+    const fsBtn = document.getElementById('fsBtn');
+    const progress = document.getElementById('progress');
+    const channelsList = document.getElementById('channelsList');
+    const currentChannelLabel = document.getElementById('currentChannel');
+    const chResolution = document.getElementById('chResolution');
+    const toastContainer = document.getElementById('toastContainer');
 
-</figure>
-<center><h4 style="color:#FFFFFF;font-size:30px;"> Bein Sport <strong ></h4></center>
+    let currentIndex = 0;
+    let hls = null;
+    let isPlaying = false;
+    let progressUpdating = false;
 
+    // عرض قائمة القنوات مع الصور (أستخدم بالحروف كبديل للصور)
+    function buildChannelList(){
+      channels.forEach((ch, idx) => {
+        const el = document.createElement('div');
+        el.className = 'channel';
+        el.dataset.idx = idx;
 
-<div class="scrollmenu">     <a href="https://ameer8245ameer.github.io/Dazn2/"><div class="cen"> <img class="nt" src="https://i.ibb.co/71F6Bkd/Picsart-24-09-27-13-19-16-700.png"><h5 
-class="centered"></h5></div> <a href="https://ameer8245ameer.github.io/bein2/"><div class="cen"> <img class="nt" src="https://i.ibb.co/KFPKQBZ/Picsart-24-09-27-13-20-15-487.png"><h5 
-class="centered"></h5></div> <a href="  https://ameer8245ameer.github.io/bein-3/"><div class="cen"> <img class="nt" src="https://i.ibb.co/cXmxRvL/Picsart-24-09-27-13-20-38-141.png"><h5
-class="centered"></h5></div> <a href="https://ameer8245ameer.github.io/bein4/"><div class="cen"> <img class="nt" src="https://i.ibb.co/pLBvsFG/Picsart-24-09-27-13-21-14-717.png"><h5
-class="centered"></h5></div> <a href="https://ameer8245ameer.github.io/bein5/"><div class="cen"> <img class="nt" src="https://i.ibb.co/N3kQYYc/Picsart-24-09-27-13-21-35-735.png"><h5
-class="centered"></h5></div> <a href="https://ameer8245ameer.github.io/bein6/"><div class="cen"> <img class="nt" src="https://i.ibb.co/rp8qRwm/Picsart-24-09-27-13-21-56-278.png"><h5
-class="centered"></h5></div> <a href="https://ameer8245ameer.github.io/bein7"><div class="cen"> <img class="nt" src="https://i.ibb.co/JrdDqWg/Picsart-24-09-27-13-22-14-375.png"><h5
-class="centered"></h5></div> <a href="https://ameer8245ameer.github.io/bein8/"><div class="cen"> <img class="nt" src="https://i.ibb.co/HVJYFDz/Picsart-24-09-27-13-22-37-027.png"><h5
-class="centered"></h5></div> <a href="https://ameer8245ameer.github.io/Dazn1/"><div class="cen"> <img class="nt" src="https://i.ibb.co/KLR0ZdW/images.png"><h5
-class="centered"></h5></div> <a href="https://ameer8245ameer.github.io/Dazn2/"><div class="cen"> <img class="nt" src="https://i.ibb.co/QnqjL8D/Picsart-24-08-12-03-14-14-370.jpg"><h5
-class="centered"></h5></div> <a href="go:gv"><div class="cen ag"> <img class="nt" src="https://i.postimg.cc/HWMfRpSt/gomaxtv.png"> 
-<h5 class="centered"></h5> 
-</div> </a> </div> 
-</div> <div 
-</figure>
-<center><h4 style="color:#FFFFFF;font-size:30px;"> Bein Sport <strong ></h4></center>
-<div class="scrollmenu">     <a href="https://ameer8245ameer.github.io/Dazn2/"><div class="cen"> <img class="nt" src="https://i.ibb.co/71F6Bkd/Picsart-24-09-27-13-19-16-700.png"><h5 
-class="centered"></h5></div> <a href="https://ameer8245ameer.github.io/bein2/"><div class="cen"> <img class="nt" src="https://i.ibb.co/KFPKQBZ/Picsart-24-09-27-13-20-15-487.png"><h5 
-class="centered"></h5></div> <a href="  https://ameer8245ameer.github.io/bein-3/"><div class="cen"> <img class="nt" src="https://i.ibb.co/cXmxRvL/Picsart-24-09-27-13-20-38-141.png"><h5
-class="centered"></h5></div> <a href="https://ameer8245ameer.github.io/bein4/"><div class="cen"> <img class="nt" src="https://i.ibb.co/pLBvsFG/Picsart-24-09-27-13-21-14-717.png"><h5
-class="centered"></h5></div> <a href="https://ameer8245ameer.github.io/bein5/"><div class="cen"> <img class="nt" src="https://i.ibb.co/N3kQYYc/Picsart-24-09-27-13-21-35-735.png"><h5
-class="centered"></h5></div> <a href="https://ameer8245ameer.github.io/bein6/"><div class="cen"> <img class="nt" src="https://i.ibb.co/rp8qRwm/Picsart-24-09-27-13-21-56-278.png"><h5
-class="centered"></h5></div> <a href="https://ameer8245ameer.github.io/bein7"><div class="cen"> <img class="nt" src="https://i.ibb.co/JrdDqWg/Picsart-24-09-27-13-22-14-375.png"><h5
-class="centered"></h5></div> <a href="https://ameer8245ameer.github.io/bein8/"><div class="cen"> <img class="nt" src="https://i.ibb.co/HVJYFDz/Picsart-24-09-27-13-22-37-027.png"><h5
-class="centered"></h5></div> <a href="https://ameer8245ameer.github.io/Dazn1/"><div class="cen"> <img class="nt" src="https://i.ibb.co/KLR0ZdW/images.png"><h5
-class="centered"></h5></div> <a href="https://ameer8245ameer.github.io/Dazn2/"><div class="cen"> <img class="nt" src="https://i.ibb.co/QnqjL8D/Picsart-24-08-12-03-14-14-370.jpg"><h5
-class="centered"></h5></div> <a href="go:gv"><div class="cen ag"> <img class="nt" src="https://i.postimg.cc/HWMfRpSt/gomaxtv.png"> 
-<h5 class="centered"></h5> 
-</div> </a> </div> 
-</div> <div 
+        const thumb = document.createElement('div');
+        thumb.className = 'thumb';
+        // حط أول حرفين من الاسم كـ "صورة"
+        const initials = ch.name.split(' ').slice(0,2).map(s=>s[0].toUpperCase()).join('');
+        thumb.textContent = initials;
 
-</figure>
-<center><h4 style="color:#FF0000;font-size:30px;"> ameer live <strong ></h4></center>
-<img src="https://i.ibb.co/LrqHHvP/Picsart-24-09-29-18-28-25-484.jpg" style="border-radius: 8px;" height="300px" width="1000px" vspace="5px" />
-h4></center>
-<img src="https://i.ibb.co/fGmP0Rr/Picsart-24-09-29-18-43-07-707.jpg" style="border-radius: 8px;" height="300px" width="1000px" vspace="5px" />
-<br>
-<center><h4 style="color:#FFFF00;font-size:30px;"> ameer live <strong ></h4></center>
+        const info = document.createElement('div');
+        info.className = 'ch-info';
+        info.innerHTML = `<div class="ch-name">${ch.name}</div><div class="ch-sub">رابط: ${ch.url.split('/').slice(-1)[0]}</div>`;
+
+        el.appendChild(thumb);
+        el.appendChild(info);
+        el.addEventListener('click', ()=>{ switchToChannel(idx); });
+        channelsList.appendChild(el);
+      });
+      highlightActive();
+    }
+
+    function highlightActive(){
+      Array.from(document.querySelectorAll('.channel')).forEach(c=>{
+        c.classList.toggle('active', Number(c.dataset.idx) === currentIndex);
+      });
+    }
+
+    // تشغيل قناة حسب الفهرس
+    function switchToChannel(idx){
+      if(idx < 0) idx = channels.length - 1;
+      if(idx >= channels.length) idx = 0;
+      currentIndex = idx;
+      loadStream(channels[currentIndex].url);
+      currentChannelLabel.textContent = channels[currentIndex].name;
+      showToast(`تم التحويل إلى: ${channels[currentIndex].name}`);
+      highlightActive();
+      showNotification(`Ameer TV`, `الآن: ${channels[currentIndex].name}`);
+    }
+
+    // تحميل وتشغيل M3U8 عبر HLS.js أو native
+    function loadStream(src){
+      // destroy old hls
+      if(hls){ hls.destroy(); hls = null; }
+
+      if(Hls.isSupported()){
+        hls = new Hls({enableWorker:true, maxBufferLength:30});
+        hls.loadSource(src);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function() {
+          video.play().catch(()=>{});
+          isPlaying = true;
+          playBtn.textContent = '⏸️';
+          updateResolution();
+        });
+        hls.on(Hls.Events.LEVEL_SWITCHED, updateResolution);
+      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = src;
+        video.addEventListener('loadedmetadata', function(){ video.play().catch(()=>{}); isPlaying = true; playBtn.textContent = '⏸️'; updateResolution(); }, {once:true});
+      } else {
+        alert('المتصفح لا يدعم تشغيل HLS. جرب متصفح حديث مثل Chrome أو Safari.');
+      }
+    }
+
+    function updateResolution(){
+      try {
+        if(hls && hls.levels){
+          const lvl = hls.levels[hls.currentLevel] || hls.levels[0];
+          chResolution.textContent = lvl ? `${lvl.width || ''}x${lvl.height || ''} · ${lvl.bitrate ? Math.round(lvl.bitrate/1000)+'kbps':''}` : '';
+        } else {
+          chResolution.textContent = '';
+        }
+      } catch(e){ chResolution.textContent = ''; }
+    }
+
+    // play/pause
+    playBtn.addEventListener('click', ()=>{
+      if(video.paused){ video.play(); playBtn.textContent='⏸️'; isPlaying=true; }
+      else { video.pause(); playBtn.textContent='▶️'; isPlaying=false; }
+    });
+
+    nextBtn.addEventListener('click', ()=> switchToChannel(currentIndex+1));
+    prevBtn.addEventListener('click', ()=> switchToChannel(currentIndex-1));
+
+    // volume
+    volumeSlider.addEventListener('input', (e)=>{ video.volume = e.target.value; if(video.volume==0) muteBtn.textContent='🔇'; else muteBtn.textContent='🔊'; });
+    muteBtn.addEventListener('click', ()=>{
+      if(video.muted){ video.muted=false; muteBtn.textContent='🔊'; volumeSlider.value = video.volume || 1; }
+      else { video.muted=true; muteBtn.textContent='🔇'; volumeSlider.value = 0; }
+    });
+
+    // full screen
+    fsBtn.addEventListener('click', ()=>{
+      const el = document.getElementById('player');
+      if(!document.fullscreenElement) el.requestFullscreen?.() || el.webkitRequestFullscreen?.();
+      else document.exitFullscreen?.();
+    });
+
+    // progress bar (pseudo: because live streams have no duration, we show buffered %)
+    setInterval(()=> {
+      if(hls && hls.bufferInfo){
+        const bufferInfo = hls.bufferInfo(video.currentTime, 0);
+        const buffered = bufferInfo && bufferInfo.len ? Math.min(100, Math.round(bufferInfo.len * 10)) : 0;
+        progress.value = buffered;
+      }
+    }, 800);
+
+    // keyboard shortcuts
+    window.addEventListener('keydown', (e)=>{
+      if(e.key === 'ArrowRight') switchToChannel(currentIndex+1);
+      if(e.key === 'ArrowLeft') switchToChannel(currentIndex-1);
+      if(e.key === ' ') { e.preventDefault(); playBtn.click(); }
+      if(e.key === 'f') fsBtn.click();
+      if(e.key === 'm') muteBtn.click();
+    });
+
+    // little toast
+    function showToast(text, timeout=3000){
+      const t = document.createElement('div');
+      t.className = 'toast';
+      t.innerHTML = `<div style="font-weight:700">Ameer TV</div><div style="opacity:0.9">${text}</div>`;
+      document.body.appendChild(t);
+      setTimeout(()=> t.style.opacity = 1, 10);
+      setTimeout(()=> { t.style.opacity = 0; setTimeout(()=> t.remove(), 400); }, timeout);
+    }
+
+    // notifications (system) - تطلب الإذن مرة واحدة
+    function showNotification(title, body){
+      if(!("Notification" in window)) return;
+      if(Notification.permission === "granted"){
+        new Notification(title, {body, icon: ''});
+      } else if(Notification.permission !== "denied"){
+        Notification.requestPermission().then(permission=>{
+          if(permission === "granted"){
+            new Notification(title, {body, icon: ''});
+          }
+        });
+      }
+    }
+
+    // init
+    buildChannelList();
+    switchToChannel(0); // شغّل القناة الأولى افتراضياً
+
+    // طلب إذن الإشعارات عند التحميل (اختياري، تقدر تحذف لو تحب)
+    if("Notification" in window && Notification.permission !== "granted" && Notification.permission !== "denied"){
+      // نطلب الإذن بلطف بعد 2 ثانية
+      setTimeout(()=> {
+        Notification.requestPermission();
+      }, 2000);
+    }
+
+    // تجربة: عند خطأ في التشغيل
+    video.addEventListener('error', (e)=>{
+      showToast('حدث خطأ في تشغيل البث. حاول تغيير القناة.');
+    });
+
+    // responsive: اضبط الصوت الابتدائي
+    video.volume = 1;
+
+  </script>
+</body>
+</html>
+
